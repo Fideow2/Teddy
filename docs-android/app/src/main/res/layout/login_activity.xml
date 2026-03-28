@@ -79,6 +79,16 @@
             android:layout_marginTop="20dip"
             android:gravity="center"
             android:text="@string/login" />
+
+        <Button
+            android:id="@+id/btnGuestLogin"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_marginTop="12dip"
+            android:gravity="center"
+            android:drawableLeft="@android:drawable/ic_menu_myplaces"
+            android:drawablePadding="8dip"
+            android:text="@string/login_as_guest" />
     </LinearLayout>
 
     <LinearLayout

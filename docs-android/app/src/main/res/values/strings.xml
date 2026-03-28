@@ -17,6 +17,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="login_as_guest">Login as guest</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="login_fail_title">Login fail</string>
