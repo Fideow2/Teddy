@@ -1,19 +1,29 @@
 pipeline {
     agent any
     stages {
-        stage('Build & Test') {
+        stage('Clean') {
             steps {
-                sh 'mvn clean install -Dmaven.test.failure.ignore=true'
+                sh 'mvn clean'
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test jacoco:report -Dmaven.test.failure.ignore=true'
+            }
+        }
+        stage('Install') {
+            steps {
+                sh 'mvn install -DskipTests'
             }
         }
         stage('PMD') {
             steps {
                 sh 'mvn pmd:pmd'
-            }
-        }
-        stage('JaCoCo') {
-            steps {
-                sh 'mvn jacoco:report'
             }
         }
         stage('Javadoc') {
@@ -24,6 +34,11 @@ pipeline {
         stage('Site') {
             steps {
                 sh 'mvn site'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn package -DskipTests'
             }
         }
     }
