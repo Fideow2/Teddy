@@ -28,15 +28,15 @@ pipeline {
         }
         stage('Javadoc') {
             steps {
-                // 加了这个参数，文档错误不会打断构建
                 sh 'mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false'
             }
         }
-        stage('Site') {
-            steps {
-                sh 'mvn site'
-            }
-        }
+        // Site 阶段暂时跳过，maven-site-plugin 版本不兼容
+        // stage('Site') {
+        //     steps {
+        //         sh 'mvn site'
+        //     }
+        // }
         stage('Package') {
             steps {
                 sh 'mvn package -DskipTests'
@@ -45,7 +45,8 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: '**/target/site/**/*.*', fingerprint: true
+            // 如果跳过了 site，这里也要去掉 site 产物，否则 archiveArtifacts 会报错找不到文件
+            // archiveArtifacts artifacts: '**/target/site/**/*.*', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
             junit '**/target/surefire-reports/*.xml'
