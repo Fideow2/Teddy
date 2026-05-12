@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn test jacoco:report -Dmaven.test.failure.ignore=true'
+                sh 'mvn test org.jacoco:jacoco-maven-plugin:0.8.9:report -Dmaven.test.failure.ignore=true'
             }
         }
         stage('Install') {
