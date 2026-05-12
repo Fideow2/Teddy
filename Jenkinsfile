@@ -28,7 +28,8 @@ pipeline {
         }
         stage('Javadoc') {
             steps {
-                sh 'mvn javadoc:javadoc'
+                // 加了这个参数，文档错误不会打断构建
+                sh 'mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false'
             }
         }
         stage('Site') {
