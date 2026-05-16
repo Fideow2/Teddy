@@ -36,7 +36,6 @@ pipeline {
         stage('Run containers') {
             steps {
                 script {
-                    // 停掉旧的
                     sh 'docker stop teedy-container-8081 || true'
                     sh 'docker stop teedy-container-8082 || true'
                     sh 'docker stop teedy-container-8083 || true'
@@ -44,7 +43,6 @@ pipeline {
                     sh 'docker rm teedy-container-8082 || true'
                     sh 'docker rm teedy-container-8083 || true'
                     
-                    // 运行三个容器
                     docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").run(
                         '--name teedy-container-8081 -d -p 8081:8080'
                     )
